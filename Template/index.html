@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinWise AI — Financial Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="FinWise AI home">
+        <span class="brand-mark">◢</span>
+        <span><strong>FinWise AI</strong><small>Borrow Smarter. Live Brighter.</small></span>
+      </a>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <button class="nav-item active" data-page="Dashboard"><span>⌂</span>Dashboard</button>
+        <button class="nav-item" data-page="Transactions"><span>⇄</span>Transactions</button>
+        <button class="nav-item" data-page="Income & Expenses"><span>◉</span>Income &amp; Expenses</button>
+        <button class="nav-item" data-page="Loans & Leases"><span>▣</span>Loans &amp; Leases</button>
+        <button class="nav-item" data-page="Loan Simulator"><span>▤</span>Loan Simulator</button>
+        <button class="nav-item" data-page="Financial Health"><span>♡</span>Financial Health</button>
+        <button class="nav-item" data-page="AI Assistant"><span>✧</span>AI Assistant</button>
+        <button class="nav-item" data-page="Reports"><span>▦</span>Reports</button>
+        <button class="nav-item" data-page="Settings"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="upgrade-card">
+        <div class="upgrade-title">♛ &nbsp; Upgrade to Pro</div>
+        <p>Get advanced insights and personalized recommendations.</p>
+        <button class="upgrade-btn" id="upgradeBtn">Upgrade</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search transactions, loans, or insights..." /></label>
+        <div class="top-actions">
+          <button class="icon-button notification" aria-label="Notifications" id="notificationBtn">♧<i></i></button>
+          <button class="icon-button" id="bankConnectBtn" title="Connect demo bank">＋ Bank</button>
+          <div class="avatar" id="userAvatar">?</div>
+          <button class="profile-button" id="profileBtn">Sign in <span>⌄</span></button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow">YOUR MONEY, MADE CLEAR</p>
+            <h1 id="pageHeading">Welcome back, Alex! <span class="wave">👋</span></h1>
+            <p class="muted" id="pageSubtitle">Here's your financial overview for your saved FinWise data.</p>
+          </div>
+          <label class="month-picker">▣ <select id="monthSelect" aria-label="Select month">
+            <option>All saved data</option><option>This month</option>
+          </select></label>
+        </section>
+
+        <section class="metric-grid">
+          <article class="metric-card">
+            <div class="metric-icon mint">▱</div><div class="metric-copy"><span>Monthly Income</span><strong>₹65,000</strong><small class="positive">↑ 12% <em>from last month</em></small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon rose">▤</div><div class="metric-copy"><span>Monthly Expenses</span><strong>₹32,400</strong><small class="negative">↑ 5% <em>from last month</em></small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon blue">♧</div><div class="metric-copy"><span>Monthly Savings</span><strong>₹15,600</strong><small class="positive">↑ 18% <em>from last month</em></small></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon violet">▤</div><div class="metric-copy"><span>Active EMIs</span><strong>₹12,000</strong><small class="subtle">3 active loans</small></div>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="panel chart-panel">
+            <div class="panel-heading"><div><h2>Income vs Expenses</h2><p>Last 6 months</p></div><div class="legend"><span><i class="dot income-dot"></i>Income</span><span><i class="dot expense-dot"></i>Expenses</span></div></div>
+            <div class="bar-chart" id="barChart" aria-label="Income versus expenses for the last six months">
+              <div class="y-labels" id="chartYAxis"><span>₹0</span><span>₹0</span><span>₹0</span><span>₹0</span><span>₹0</span></div>
+              <div class="chart-plot">
+                <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="bar-groups" id="chartBars"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel expense-panel">
+            <div class="panel-heading"><div><h2>Expense Breakdown</h2><p>This month</p></div></div>
+            <div class="expense-content">
+              <div class="donut-wrap"><div class="donut" id="expenseDonut" style="background:conic-gradient(#e9eef5 0 100%)"><div><strong id="expenseTotal">₹0</strong><span>Saved expenses</span></div></div></div>
+              <div class="category-list" id="expenseCategories"><div class="empty-state">No saved expenses yet.</div></div>
+            </div>
+            <button class="text-link" data-page="Income & Expenses">View details →</button>
+          </article>
+
+          <article class="panel transactions-panel">
+            <div class="panel-heading"><div><h2>Recent Transactions</h2><p>Latest activity on your accounts</p></div><button class="text-link" data-page="Transactions">View all →</button></div>
+            <div class="table-scroll"><table id="transactionsTable">
+              <thead><tr><th>Date</th><th>Description</th><th>Category</th><th class="align-right">Amount</th></tr></thead>
+              <tbody>
+                <tr><td>Nov 12, 2024</td><td><span class="transaction-icon red">▣</span>Zomato</td><td><span class="category-pill"><i class="cat c2"></i>Food &amp; Dining</span></td><td class="amount negative-text">−₹450</td></tr>
+                <tr><td>Nov 11, 2024</td><td><span class="transaction-icon green">▤</span>Salary Credit</td><td><span class="category-pill"><i class="cat c7"></i>Income</span></td><td class="amount positive-text">+₹65,000</td></tr>
+                <tr><td>Nov 10, 2024</td><td><span class="transaction-icon coral">⌂</span>Rent Payment</td><td><span class="category-pill"><i class="cat c4"></i>Housing</span></td><td class="amount negative-text">−₹12,000</td></tr>
+                <tr><td>Nov 9, 2024</td><td><span class="transaction-icon orange">▣</span>Blinkit</td><td><span class="category-pill"><i class="cat c5"></i>Shopping</span></td><td class="amount negative-text">−₹1,200</td></tr>
+                <tr><td>Nov 8, 2024</td><td><span class="transaction-icon amber">ϟ</span>Electricity Bill</td><td><span class="category-pill"><i class="cat c1"></i>Utilities</span></td><td class="amount negative-text">−₹2,450</td></tr>
+              </tbody>
+            </table></div>
+          </article>
+
+          <article class="panel loans-panel">
+            <div class="panel-heading"><div><h2>Active Loans &amp; Leases</h2><p>Keep your repayments in view</p></div><button class="text-link" data-page="Loans & Leases">View all →</button></div>
+            <div class="loan-row">
+              <div class="loan-icon blue">▣</div><div class="loan-info"><div class="loan-title"><strong>Personal Loan</strong><b>₹2,40,000</b></div><div class="loan-meta">HDFC Bank • 12% p.a. <span>₹8,500 / month</span></div><div class="progress"><i style="width:78%"></i></div><div class="loan-meta small"><span>28 of 36 months</span><span>8 months left</span></div></div>
+            </div>
+            <div class="loan-row">
+              <div class="loan-icon rose">▰</div><div class="loan-info"><div class="loan-title"><strong>Car Loan</strong><b>₹4,80,000</b></div><div class="loan-meta">Tata Capital • 9% p.a. <span>₹12,000 / month</span></div><div class="progress"><i style="width:39%"></i></div><div class="loan-meta small"><span>18 of 60 months</span><span>42 months left</span></div></div>
+            </div>
+            <div class="loan-row">
+              <div class="loan-icon mint">▤</div><div class="loan-info"><div class="loan-title"><strong>Credit Card (EMI)</strong><b>₹36,000</b></div><div class="loan-meta">SBI Card • 14% p.a. <span>₹3,500 / month</span></div><div class="progress"><i style="width:50%"></i></div><div class="loan-meta small"><span>6 of 12 months</span><span>6 months left</span></div></div>
+            </div>
+          </article>
+
+          <article class="panel health-panel">
+            <div class="panel-heading"><div><h2>Financial Health Snapshot <span class="info" title="A health score is not calculated from all-time totals.">ⓘ</span></h2><p>Based on the data currently saved</p></div></div>
+            <div class="health-content">
+              <div class="score-ring unscored"><div><strong>—</strong><span>/ 100</span><small>Not scored</small></div></div>
+              <div class="health-checks" id="healthChecks">
+                <p>Health indicators will appear after your financial history is loaded.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel cashflow-panel">
+            <div class="panel-heading"><div><h2>Saved Cash Flow</h2><p>Totals across all saved transactions; EMI is monthly</p></div></div>
+            <div class="cashflow-lines" id="cashflowLines">
+              <div><span>Total income</span><b>₹0</b></div>
+              <div><span>Total expenses</span><b>₹0</b></div>
+              <div><span>Net transaction flow</span><b>₹0</b></div>
+              <div><span>Monthly loan EMIs</span><b>₹0</b></div>
+            </div>
+          </article>
+
+          <article class="panel simulator-panel">
+            <div class="panel-heading"><div><h2>Loan Impact Simulator</h2><p>See how a new loan affects your finances</p></div></div>
+            <form id="loanForm" class="simulator-form">
+              <label>Loan Amount <div class="input-prefix"><span>₹</span><input id="loanAmount" type="number" min="1" value="50000" required /></div></label>
+              <label>Interest Rate (p.a.) <div class="input-suffix"><input id="interestRate" type="number" min="0" max="100" step="0.1" value="12" required /><span>%</span></div></label>
+              <label>Repayment Period <div class="input-suffix"><input id="loanTenure" type="number" min="1" max="360" value="12" required /><span>months</span></div></label>
+              <button class="primary-btn" type="submit">Calculate Impact <span>→</span></button>
+            </form>
+            <div id="simulatorResult" class="simulator-result" aria-live="polite" hidden></div>
+          </article>
+
+          <article class="panel payments-panel">
+            <div class="panel-heading"><div><h2>Upcoming Payments</h2><p>Payment due dates</p></div><button class="text-link" data-page="Loans & Leases">View loans →</button></div>
+            <div id="upcomingPayments" class="empty-state">Upcoming due dates are not available from the saved loan data yet.</div>
+          </article>
+
+          <article class="panel assistant-panel">
+            <div class="panel-heading"><div><h2><span class="sparkle">✦</span> AI Financial Assistant</h2><p>Understand your money with confidence</p></div><span class="online-dot"></span></div>
+            <div class="assistant-bubble">Ask me about your finances, loans, or future plans!</div>
+            <div class="suggestions">
+              <button data-question="Can I afford a ₹50,000 loan?">Can I afford a ₹50,000 loan? <span>›</span></button>
+              <button data-question="How can I improve my savings?">How can I improve my savings? <span>›</span></button>
+              <button data-question="Is buying now or later better?">Is buying now or later better? <span>›</span></button>
+              <button data-question="Explain my financial health">Explain my financial health <span>›</span></button>
+            </div>
+            <form id="assistantForm" class="assistant-input"><input id="assistantQuestion" placeholder="Type your question..." /><button aria-label="Send question" type="submit">➤</button></form>
+            <div id="assistantReply" class="assistant-reply" aria-live="polite" hidden></div>
+          </article>
+        </section>
+        <footer id="appFooter">FinWise AI · Connect to your account to load your saved data. Bank connection is simulated.</footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
